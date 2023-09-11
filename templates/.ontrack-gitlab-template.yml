@@ -7,7 +7,12 @@
         export ONTRACK_CLI_VERSION=0.1.18
       fi
 
-      export ONTRACK_CLI_URL="https://github.com/nemerosa/ontrack-cli/releases/download/${ONTRACK_CLI_VERSION}/ontrack-cli-$(uname -s)-$(uname -m)"
+      export ARCH=$(uname -m)
+      if [[ "${ARCH}" == "x86_64" ]]
+        export ARCH="386"
+      fi
+
+      export ONTRACK_CLI_URL="https://github.com/nemerosa/ontrack-cli/releases/download/${ONTRACK_CLI_VERSION}/ontrack-cli-$(uname -s)-${ARCH}"
       echo "Downloading the Ontrack CLI from ${ONTRACK_CLI_URL}"
       curl --output ontrack-cli --fail -L "${ONTRACK_CLI_URL}"
 
