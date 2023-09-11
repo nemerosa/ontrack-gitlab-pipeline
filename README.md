@@ -21,8 +21,10 @@ Setup the Ontrack project & branch by running:
 
 ```yaml
 setup:
-   stage: .pre
-   extends: .ontrack_setup
+  stage: .pre
+  extends: .ontrack_setup
+  script: |
+    echo "Setting up Ontrack"
 ```
 
 > This will use the CI predefined variables to setup your Ontrack project & branch.
