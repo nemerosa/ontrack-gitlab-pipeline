@@ -1,7 +1,13 @@
 # Setting up the Ontrack CLI
 .ontrack_setup:
    before_script: |
-      echo $ONTRACK_URL
-      echo $ONTRACK_TOKEN
-      uname -o
-      uname -m
+      if [[ "${ONTRACK_CLI_VERSION}" == "" ]]
+      then
+        echo "No ONTRACK_CLI_VERSION defined at project or group level, using 0.1.18 by default."
+        export ONTRACK_CLI_VERSION=0.1.18
+      fi
+
+      curl --output ontrack-cli --fail -L "https://github.com/nemerosa/ontrack-cli/releases/download/${ONTRACK_CLI_VERSION}/ontrack-cli-$(uname -s)-$(uname -m)"
+      chmod u+x ontrack-cli
+
+      ./ontrack-cli version
