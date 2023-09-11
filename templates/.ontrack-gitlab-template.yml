@@ -20,4 +20,4 @@
       curl --output ontrack-cli --fail -L "${ONTRACK_CLI_URL}"
 
       chmod u+x ontrack-cli
-      ./ontrack-cli version
+      ./ontrack-cli version --cli
