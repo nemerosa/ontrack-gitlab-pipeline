@@ -2,13 +2,13 @@
 .ontrack_setup:
    before_script: |
 
-      if [[ "${ONTRACK_URL} == "" "]]
+      if [[ "${ONTRACK_URL}" == "" ]]
       then
         echo "Missing ONTRACK_URL variable."
         exit 1
       fi
 
-      if [[ "${ONTRACK_TOKEN} == "" "]]
+      if [[ "${ONTRACK_TOKEN}" == "" ]]
       then
         echo "Missing ONTRACK_TOKEN variable."
         exit 1
@@ -36,4 +36,4 @@
       ./ontrack-cli version --cli
 
       echo "Setting up Ontrack config to ${ONTRACK_URL}"
-      ontrack-cli config create default ${ONTRACK_URL} --token ${ONTRACK_TOKEN}
+      ontrack-cli config create default "${ONTRACK_URL}" --token "${ONTRACK_TOKEN}""
