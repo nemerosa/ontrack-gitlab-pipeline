@@ -44,3 +44,6 @@
       # TODO Support for merge request
       echo "Setting up Ontrack project ${CI_PROJECT_NAME} & branch ${CI_COMMIT_BRANCH}"
       ./ontrack-cli branch setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}"
+
+      # Git setup of the branch
+      ./ontrack-cli branch set-property --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" git --git-branch "${CI_COMMIT_BRANCH}"
