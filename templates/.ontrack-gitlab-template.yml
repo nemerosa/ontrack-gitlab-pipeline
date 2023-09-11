@@ -1,7 +1,7 @@
 # Setting up the Ontrack CLI
 .ontrack_setup:
-   before_script: |
-      eco $ONTRACK_URL
-      eco $ONTRACK_TOKEN
+   script: |
+      echo $ONTRACK_URL
+      echo $ONTRACK_TOKEN
       uname -o
       uname -m
