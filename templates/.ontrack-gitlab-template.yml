@@ -38,4 +38,4 @@
       ./ontrack-cli version --cli
 
       echo "Setting up Ontrack config to ${ONTRACK_URL}"
-      ontrack-cli config create default "${ONTRACK_URL}" --token "${ONTRACK_TOKEN}"
+      ./ontrack-cli config create default "${ONTRACK_URL}" --token "${ONTRACK_TOKEN}"
