@@ -2,22 +2,24 @@
 .ontrack_setup:
    before_script: |
 
-      # if [[ "${ONTRACK_URL}" == "" ]]
-      # then
-      #   echo "Missing ONTRACK_URL variable."
-      #   exit 1
-      # fi
+      export ONTRACK_CLI_VERSION_DEFAULT=0.1.21
+      
+      if [[ "${ONTRACK_URL}" == "" ]]
+      then
+        echo "Missing ONTRACK_URL variable."
+        exit 1
+      fi
 
-      # if [[ "${ONTRACK_TOKEN}" == "" ]]
-      # then
-      #   echo "Missing ONTRACK_TOKEN variable."
-      #   exit 1
-      # fi
+      if [[ "${ONTRACK_TOKEN}" == "" ]]
+      then
+        echo "Missing ONTRACK_TOKEN variable."
+        exit 1
+      fi
 
       if [[ "${ONTRACK_CLI_VERSION}" == "" ]]
       then
-        echo "No ONTRACK_CLI_VERSION defined at project or group level, using 0.1.18 by default."
-        export ONTRACK_CLI_VERSION=0.1.21
+        echo "No ONTRACK_CLI_VERSION defined at project or group level, using ${ONTRACK_CLI_VERSION_DEFAULT} by default."
+        export ONTRACK_CLI_VERSION=${ONTRACK_CLI_VERSION_DEFAULT}
       fi
 
       export OS=$(uname -s | tr '[:upper:]' '[:lower:]')
