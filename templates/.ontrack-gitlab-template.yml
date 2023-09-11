@@ -39,3 +39,8 @@
 
       echo "Setting up Ontrack config to ${ONTRACK_URL}"
       ./ontrack-cli config create default "${ONTRACK_URL}" --token "${ONTRACK_TOKEN}"
+
+
+      # TODO Support for merge request
+      echo "Setting up Ontrack project ${CI_PROJECT_NAME} & branch ${CI_COMMIT_BRANCH}"
+      ./ontrack-cli branch setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}"
