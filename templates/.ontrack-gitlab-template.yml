@@ -61,7 +61,7 @@
   after_script: |
 
     if [[ "${ONTRACK_BUILD_VERSION_FILE}" != "" ]]; then
-      if [[ -f "${ONTRACK_BUILD_VERSION_FILE}"]]; then
+      if [[ -f "${ONTRACK_BUILD_VERSION_FILE}" ]]; then
         ONTRACK_BUILD_VERSION=$(cat "${ONTRACK_BUILD_VERSION_FILE}")
       fi
     fi
