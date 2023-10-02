@@ -60,8 +60,11 @@
 .ontrack-build:
   after_script: |
 
-    # Getting the env
-    env
+    if [[ "${ONTRACK_BUILD_VERSION_FILE}" != "" ]]; then
+      if [[ -f "${ONTRACK_BUILD_VERSION_FILE}"]]; then
+        ONTRACK_BUILD_VERSION=$(cat "${ONTRACK_BUILD_VERSION_FILE}")
+      fi
+    fi
 
     ./ontrack-cli build setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
        --commit "${CI_COMMIT_SHA}" \
