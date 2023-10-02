@@ -73,9 +73,15 @@
       ONTRACK_VALIDATION="$CI_JOB_NAME_SLUG"
     fi
 
+    # Getting the job status
     if [[ "${CI_JOB_STATUS}" == "success" ]]; then
       ONTRACK_VALIDATION_STATUS=PASSED
     else
       ONTRACK_VALIDATION_STATUS=FAILED
     fi
+
+    # Getting the job duration
+    echo CI_JOB_STARTED_AT=$CI_JOB_STARTED_AT
+
+    # Creating the validation
     ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS}
