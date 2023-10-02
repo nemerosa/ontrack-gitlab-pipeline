@@ -49,6 +49,7 @@
 
       # Git setup of the branch
       ./ontrack-cli branch set-property --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" git --git-branch "${CI_COMMIT_BRANCH}"
+
   artifacts:
     name: ontrack
     paths:
@@ -61,3 +62,14 @@
 
     ./ontrack-cli build setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
        --commit "${CI_COMMIT_SHA}"
+
+
+# Creating a simple (non typed) validation
+.ontrack-build:
+  after_script: |
+    if [[ "${CI_JOB_STATUS}" == "success" ]]; then
+      ONTRACK_VALIDATION_STATUS=PASSED
+    else
+      ONTRACK_VALIDATION_STATUS=FAILED
+    fi
+    ./ontrack-cli validate "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS}
