@@ -78,4 +78,4 @@
     else
       ONTRACK_VALIDATION_STATUS=FAILED
     fi
-    ./ontrack-cli validate "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS}
+    ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS}
