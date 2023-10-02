@@ -65,8 +65,14 @@
 
 
 # Creating a simple (non typed) validation
-.ontrack-validate:
+.ontrack-build:
   after_script: |
+
+    if [[ "${ONTRACK_VALIDATION}" == "" ]]; then
+      echo "Missing ONTRACK_VALIDATION variable."
+      exit 1
+    fi
+
     if [[ "${CI_JOB_STATUS}" == "success" ]]; then
       ONTRACK_VALIDATION_STATUS=PASSED
     else
