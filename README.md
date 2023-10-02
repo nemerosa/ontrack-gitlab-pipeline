@@ -37,3 +37,7 @@ default:
 ```
 
 > Other options are possible at job level for some specific cases.
+
+## References
+
+* https://docs.gitlab.com/ee/ci/variables/predefined_variables.html - GitLab environment variables

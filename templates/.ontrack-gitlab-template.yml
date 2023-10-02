@@ -1,3 +1,5 @@
+
+
 # Setting up the Ontrack CLI
 .ontrack_setup:
    before_script: |
@@ -47,3 +49,10 @@
 
       # Git setup of the branch
       ./ontrack-cli branch set-property --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" git --git-branch "${CI_COMMIT_BRANCH}"
+
+# Creating a build
+.ontrack-build:
+  after_script: |
+
+    ./ontrack-cli build setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
+       --commit "${CI_COMMIT_SHA}"
