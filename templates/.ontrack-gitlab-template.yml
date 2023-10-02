@@ -65,7 +65,7 @@
 
 
 # Creating a simple (non typed) validation
-.ontrack-build:
+.ontrack-validate:
   after_script: |
     if [[ "${CI_JOB_STATUS}" == "success" ]]; then
       ONTRACK_VALIDATION_STATUS=PASSED
