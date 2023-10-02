@@ -81,8 +81,13 @@
     fi
 
     # Getting the job duration
-    echo START_SECONDS=$(date -d "${CI_JOB_STARTED_AT}" +%s)
-    echo END_SECONDS=$(date +%s)
+    START_SECONDS=$(date -d "${CI_JOB_STARTED_AT}" +%s)
+    END_SECONDS=$(date +%s)
+    DURATION=$((END_SECONDS - START_SECONDS))
 
     # Creating the validation
-    ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS}
+    ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
+      --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS} \
+      --run-time $DURATION \
+      --source-type gitlab \
+      --source-uri "${CI_JOB_URL}"
