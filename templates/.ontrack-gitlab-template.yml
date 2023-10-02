@@ -4,7 +4,7 @@
 .ontrack_setup:
    before_script: |
 
-      export ONTRACK_CLI_VERSION_DEFAULT=0.1.21
+      export ONTRACK_CLI_VERSION_DEFAULT=0.2.0
       
       if [[ "${ONTRACK_URL}" == "" ]]
       then
@@ -49,6 +49,11 @@
 
       # Git setup of the branch
       ./ontrack-cli branch set-property --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" git --git-branch "${CI_COMMIT_BRANCH}"
+    artifacts:
+      name: ontrack
+      paths:
+        - ./ontrack-cli
+        - ./.ontrack-cli-config.yaml
 
 # Creating a build
 .ontrack-build:
