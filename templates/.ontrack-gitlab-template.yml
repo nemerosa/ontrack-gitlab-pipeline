@@ -65,7 +65,7 @@
 
 
 # Creating a simple (non typed) validation
-.ontrack-build:
+.ontrack-validate:
   after_script: |
 
     if [[ "${ONTRACK_VALIDATION}" == "" ]]; then
