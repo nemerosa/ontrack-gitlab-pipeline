@@ -69,8 +69,8 @@
   after_script: |
 
     if [[ "${ONTRACK_VALIDATION}" == "" ]]; then
-      echo "Missing ONTRACK_VALIDATION variable."
-      exit 1
+      # Using the job name by default
+      ONTRACK_VALIDATION="$CI_JOB_NAME_SLUG"
     fi
 
     if [[ "${CI_JOB_STATUS}" == "success" ]]; then
