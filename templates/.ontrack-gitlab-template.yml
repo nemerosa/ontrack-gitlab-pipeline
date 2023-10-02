@@ -61,7 +61,8 @@
   after_script: |
 
     ./ontrack-cli build setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
-       --commit "${CI_COMMIT_SHA}"
+       --commit "${CI_COMMIT_SHA}" \
+       --release ""
 
 
 # Creating a simple (non typed) validation
