@@ -1,7 +1,7 @@
 
 
 # Setting up the Ontrack CLI
-.ontrack_setup:
+.ontrack-setup:
   before_script: |
 
       export ONTRACK_CLI_VERSION_DEFAULT=0.3.0
