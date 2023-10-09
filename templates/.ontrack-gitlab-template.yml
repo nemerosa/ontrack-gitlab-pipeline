@@ -63,7 +63,7 @@
     ONTRACK_PROMOTIONS_FILE=./.ontrack/promotions.yaml
     
     if [[ -f "${ONTRACK_PROMOTIONS_FILE}" ]]; then
-      ./ontrack-cli promotion-level setup --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --yaml "${ONTRACK_PROMOTIONS_FILE}"
+      ./ontrack-cli promotion-level auto --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --yaml "${ONTRACK_PROMOTIONS_FILE}"
     fi
 
 # Creating a build
