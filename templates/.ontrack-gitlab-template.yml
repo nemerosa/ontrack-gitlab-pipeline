@@ -4,7 +4,7 @@
 .ontrack-setup:
   before_script: |
 
-      export ONTRACK_CLI_VERSION_DEFAULT=0.3.1
+      export ONTRACK_CLI_VERSION_DEFAULT=0.5.0
       
       if [[ "${ONTRACK_URL}" == "" ]]
       then
@@ -105,6 +105,36 @@
     # Creating the validation
     ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
       --validation ${ONTRACK_VALIDATION} --status ${ONTRACK_VALIDATION_STATUS} \
+      --run-time $DURATION \
+      --source-type gitlab \
+      --source-uri "${CI_JOB_URL}"
+
+
+# Creating a test-summary validation
+.ontrack-validate-tests:
+  after_script: |
+    
+    # Path to the test reports is required
+    if [[ "${ONTRACK_VALIDATION_TESTS}" == "" ]]; then
+      echo "Please set the ONTRACK_VALIDATION_TESTS environment variable to set the path pattern to the JUnit XML result files"
+      exit 1
+    fi
+
+    if [[ "${ONTRACK_VALIDATION}" == "" ]]; then
+      # Using the job name by default
+      ONTRACK_VALIDATION="$CI_JOB_NAME_SLUG"
+    fi
+
+    # Getting the job duration
+    START_SECONDS=$(date -d "${CI_JOB_STARTED_AT}" +%s)
+    END_SECONDS=$(date +%s)
+    DURATION=$((END_SECONDS - START_SECONDS))
+
+    # Creating the validation
+    ./ontrack-cli validate --project "${CI_PROJECT_NAME}" --branch "${CI_COMMIT_BRANCH}" --build "${CI_PIPELINE_IID}" \
+      junit \
+      --pattern "${ONTRACK_VALIDATION_TESTS}" \
+      --validation ${ONTRACK_VALIDATION} \
       --run-time $DURATION \
       --source-type gitlab \
       --source-uri "${CI_JOB_URL}"
