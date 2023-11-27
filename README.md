@@ -69,6 +69,41 @@ This validation is either PASSED or FAILED, depending on the result of the job. 
 
 ## Use cases
 
+### Setup of validations and promotion levels
+
+If you need to setup auto promotions (which I highly recommend), you can ask your pipeline to set them up:
+
+```yaml
+setup:
+  stage: .pre
+  extends:
+    - ...
+    - .ontrack-promotions
+    - ...
+```
+
+The `.ontrack-promotions` expects a `.ontrack/promotions.yaml` file to be present with a content like:
+
+```yaml
+validations:
+  - name: unit-tests
+    description: Unit tests
+    tests:
+      warningIfSkipped: false
+promotions:
+  - name: BRONZE
+    validations:
+      - unit-tests
+      - lint
+  - name: SILVER
+    promotions:
+      - BRONZE
+    validations:
+      - deploy
+```
+
+> Using this file, you can define _typed validatons_ and relationships between promotions, validations & other promotions.
+
 ## References
 
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html - GitLab environment variables
