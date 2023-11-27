@@ -121,7 +121,7 @@ build-job:
 
 Use the `.ontrack-validate-tests` job and the `ONTRACK_VALIDATION_TESTS` to specify a pattern to look for the JUnit XML results.
 
-> Important: your validation must be setup for unit tests (see example (above)[#setup-of-validations-and-promotion-levels])
+> Important: your validation must be setup for unit tests (see example [above](#setup-of-validations-and-promotion-levels))
 
 ## References
 
