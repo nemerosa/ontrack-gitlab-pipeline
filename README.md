@@ -13,8 +13,7 @@ In your own `.gitlab-ci.yml`, start by importing the Ontrack GitLab pipeline tem
 
 ```yaml
 include:
-  - project: 'nemerosa/ontrack-gitlab-pipeline'
-    file: '/templates/.ontrack-gitlab-template.yml'
+  - remote: 'https://gitlab.com/nemerosa/ontrack-gitlab-pipeline/-/raw/main/templates/.ontrack-gitlab-template.yml'
 ```
 
 Setup the Ontrack project & branch by running:
@@ -22,21 +21,53 @@ Setup the Ontrack project & branch by running:
 ```yaml
 setup:
   stage: .pre
-  extends: .ontrack_setup
+  extends: .ontrack-setup
   script: |
     echo "Setting up Ontrack"
 ```
 
 > This will use the CI predefined variables to setup your Ontrack project & branch.
 
+As soon as your pipeline knows the _version_ which is built, you can declare the Ontrack build:
+
+```yaml
+<job>:
+  extends: .ontrack-build
+  script: |
+    echo "1.0.${CI_PIPELINE_IID}" > version.txt
+  variables:
+    ONTRACK_BUILD_VERSION_FILE: version.txt
+```
+
+Just extend the `.ontrack-build` job and set the `ONTRACK_BUILD_VERSION_FILE` variable to point to a file which contains the _version_.
+
+Note that the setup and the creation of the build can be combined together:
+
+```yaml
+setup:
+  stage: .pre
+  extends:
+    - .ontrack-setup
+    - .ontrack-build
+  script: |
+    echo "Setting up Ontrack"
+    echo "1.0.${CI_PIPELINE_IID}" > version.txt
+  variables:
+    ONTRACK_BUILD_VERSION_FILE: version.txt
+```
+
 Then, register an Ontrack validation task for every job in your pipeline by setting up:
 
 ```yaml
-default:
-    extends: .ontrack_job
+<job>:
+  extends: .ontrack-validate
+  variables:
+    ONTRACK_VALIDATION: lint
 ```
 
-> Other options are possible at job level for some specific cases.
+This validation is either PASSED or FAILED, depending on the result of the job. More use cases (see below) are possible.
+
+## Use cases
 
 ## References
 
