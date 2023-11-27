@@ -104,6 +104,25 @@ promotions:
 
 > Using this file, you can define _typed validatons_ and relationships between promotions, validations & other promotions.
 
+### JUnit validations
+
+To create a validation based on the JUnit XML result files:
+
+```yaml
+build-job:
+  stage: build
+  script:
+    - ./gradlew build --stacktrace --parallel --console plain
+  extends:
+    - .ontrack-validate-tests
+  variables:
+    ONTRACK_VALIDATION_TESTS: build/test-results/test/*.xml
+```
+
+Use the `.ontrack-validate-tests` job and the `ONTRACK_VALIDATION_TESTS` to specify a pattern to look for the JUnit XML results.
+
+> Important: your validation must be setup for unit tests (see example (above)[#setup-of-validations-and-promotion-levels])
+
 ## References
 
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html - GitLab environment variables
